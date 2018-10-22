@@ -15,15 +15,14 @@ public class BrowserDriver implements AutoCloseable {
     public WebDriver driver;
 
     public BrowserDriver(String type) {
+        ChromeOptions capabilities = new ChromeOptions()
+                .addArguments("--start-maximized");
+
         if ("LOCAL".equals(type)) {
             String exePath = "C:/Users/pavel/Desktop/selenium/chromedriver.exe";
             System.setProperty("webdriver.chrome.driver", exePath);
-            ChromeOptions capabilities = new ChromeOptions()
-                    .addArguments("--start-maximized");
             this.driver = new ChromeDriver(capabilities);
         } else {
-            ChromeOptions capabilities = new ChromeOptions()
-                    .addArguments("--start-maximized");
             try {
                 this.driver = new RemoteWebDriver(new URL("http://192.168.0.154:4444/wd/hub"), capabilities);
             } catch (MalformedURLException e) {
@@ -54,4 +53,5 @@ public class BrowserDriver implements AutoCloseable {
         this.driver.quit();
         this.driver = null;
     }
+
 }
