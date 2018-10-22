@@ -1,21 +1,10 @@
 package pageobjects;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 
 public class HomePage {
     private WebDriver driver;
@@ -28,17 +17,17 @@ public class HomePage {
         this.driver.findElement(By.id("register")).click();
     }
 
-    public void fillRegistrationForm() {
+    public void fillRegistrationForm(String email, String user, String password) {
         WebElement form = new WebDriverWait(this.driver, 30).until(
                 ExpectedConditions.presenceOfElementLocated(By.id("join-neu-form"))
         );
         form.click();
         form.findElement(By.id("join_neu_email_field"))
-                .sendKeys("fd7103a0c0b4fd6@gmail.com");
+                .sendKeys(email);
         form.findElement(By.id("join_neu_first_name_field"))
-                .sendKeys("alfonso");
+                .sendKeys(user);
         form.findElement(By.id("join_neu_password_field"))
-                .sendKeys("fd7103a0c0b4fd6");
+                .sendKeys(password);
         form.submit();
     }
 
@@ -46,17 +35,15 @@ public class HomePage {
         this.driver.findElement(By.id("sign-in")).click();
     }
 
-    public void signIn() {
+    public void signIn(String email, String password) {
         WebElement form = new WebDriverWait(this.driver, 30).until(
                 ExpectedConditions.presenceOfElementLocated(By.id("join-neu-form"))
         );
-        //form.click();
         form.findElement(By.id("join_neu_email_field"))
-                .sendKeys("LpGB0tJJraJCSjlJ6Yk5OalElk@gmail.com");
+                .sendKeys(email);
         form.findElement(By.id("join_neu_password_field"))
-                .sendKeys("LpGB0tJJraJCSjlJ6Yk5OalElk");
+                .sendKeys(password);
         form.submit();
-
     }
 
     public boolean isLoggedIn(String user) {
