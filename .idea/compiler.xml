@@ -11,6 +11,8 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="be-md" target="1.8" />
+      <module name="be-md_main" target="1.8" />
+      <module name="be-md_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
