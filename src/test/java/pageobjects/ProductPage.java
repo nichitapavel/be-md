@@ -17,7 +17,10 @@ public class ProductPage {
     }
 
     public String getProductName() {
-        WebElement product = this.driver.findElement(By.id("listing-page-cart"));
+        WebElement product = new WebDriverWait(this.driver, 30).until(
+                ExpectedConditions.presenceOfElementLocated(By.id("listing-page-cart"))
+        );
+
         return product.findElement(By.tagName("h1")).getText();
     }
 
@@ -28,8 +31,7 @@ public class ProductPage {
 
             new WebDriverWait(this.driver, 30, 1000).until(
                     (ExpectedCondition<Boolean>) wd -> ((JavascriptExecutor) wd).
-                            executeScript("return jQuery.active").
-                            equals(0l)
+                            executeScript("return jQuery.active").equals(0l)
             );
         }
 

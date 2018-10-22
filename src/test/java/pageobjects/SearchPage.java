@@ -1,8 +1,10 @@
 package pageobjects;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -31,15 +33,23 @@ public class SearchPage {
         removeAdProducts();
     }
 
-    public void gotoLastPage() {
-        //TODO
-    }
-
     public void searchProduct(String product) {
         this.driver.get("https://www.etsy.com/search");
         WebElement searchBox = this.driver.findElement(By.id("search-query"));
         searchBox.sendKeys(product);
         searchBox.submit();
+
+        new WebDriverWait(this.driver, 30, 1000).until(
+                (ExpectedCondition<Boolean>) wd -> ((JavascriptExecutor) wd).
+                        executeScript("return document.readyState").
+                        equals("complete")
+        );
+
+        new WebDriverWait(this.driver, 30, 1000).until(
+                (ExpectedCondition<Boolean>) wd -> ((JavascriptExecutor) wd).
+                        executeScript("return jQuery.active").
+                        equals(0l)
+        );
 
         this.productsList = this.driver.findElements(By.className("block-grid-item"));
         removeAdProducts();
@@ -47,7 +57,6 @@ public class SearchPage {
 
     public void removeAdProducts() {
         Iterator<WebElement> iterator = this.productsList.iterator();
-        // Remove ADS
         while (iterator.hasNext()) {
             WebElement item = iterator.next();
             if (!(item.findElements(By.className("ad-indicator")).size() == 0)) {
