@@ -1,10 +1,11 @@
 package pageobjects;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.util.*;
 
 public class CartPage {
     private WebDriver driver;
@@ -15,8 +16,6 @@ public class CartPage {
     }
 
     public List<String> productsInCart() {
-        //this.driver.findElement(By.className("cart-list-col")); // <-------- the choosen one
-        //this.driver.findElements(By.className("multi-shop-cart-single")); // <-------- the choosen one
         List<String> productsName = new ArrayList<>();
         WebElement productsSection = this.driver.findElement(By.id("multi-shop-cart-list"));
         List<WebElement> productsInCart = productsSection.findElements(By.className("cart-listing"));
@@ -28,4 +27,5 @@ public class CartPage {
 
         return productsName;
     }
+
 }
