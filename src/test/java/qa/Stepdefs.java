@@ -1,24 +1,19 @@
 package qa;
 
+import java.util.ArrayList;
+import java.util.List;
 import browser.BrowserDriver;
-import cucumber.api.java.After;
-import cucumber.api.java.Before;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import pageobjects.CartPage;
 import pageobjects.HomePage;
+import pageobjects.ProductPage;
+import pageobjects.SearchPage;
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import cucumber.api.java.en.Then;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.By;
-import pageobjects.ProductPage;
-import pageobjects.SearchPage;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.openqa.selenium.WebElement;
 
 import static org.junit.Assert.*;
 
@@ -44,8 +39,8 @@ public class Stepdefs {
 
     @Before
     public void beforeScenario() {
-        this.browser = new BrowserDriver();
-        this.productNames = new ArrayList<String>();
+        this.browser = new BrowserDriver("LOCAL");
+        this.productNames = new ArrayList<>();
     }
 
     @After
