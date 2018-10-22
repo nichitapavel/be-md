@@ -18,15 +18,6 @@ import org.openqa.selenium.WebElement;
 import static org.junit.Assert.*;
 
 
-class IsItFriday {
-    static String isItFriday(String today) {
-        if (today.equals("Friday")) {
-            return "TGIF";
-        }
-        return "Nope";
-    }
-}
-
 public class Stepdefs {
     private BrowserDriver browser;
     private HomePage homePage;
@@ -48,21 +39,6 @@ public class Stepdefs {
         this.browser.close();
     }
 
-    @Given("^today is \"([^\"]*)\"$")
-    public void today_is(String today) {
-        this.today = today;
-    }
-
-    @When("^I ask whether it's Friday yet$")
-    public void i_ask_whether_it_s_Friday_yet() {
-        this.actualAnswer = IsItFriday.isItFriday(this.today);
-    }
-
-    @Then("^I should be told \"([^\"]*)\"$")
-    public void i_should_be_told(String expectedAnswer) {
-        assertEquals(expectedAnswer, this.actualAnswer);
-    }
-
 
     /*
     =========================================================
@@ -71,7 +47,7 @@ public class Stepdefs {
     */
 
     @Given("^webpage https://www.etsy.com/ is loaded$")
-    public void webpage_loaded_with() {
+    public void webpage_loaded() {
         this.homePage = new HomePage(this.browser.driver);
     }
 
@@ -80,9 +56,9 @@ public class Stepdefs {
         this.homePage.findRegisterForm();
     }
 
-    @And("^fill in email address, first name and password$")
-    public void fill_in_form() {
-        this.homePage.fillRegistrationForm();
+    @And("^fill in \"([^\"]*)\", \"([^\"]*)\" and \"([^\"]*)\"$")
+    public void fill_in_form(String email, String user, String password) {
+        this.homePage.fillRegistrationForm(email, user, password);
     }
 
     @When("^click Sign in$")
@@ -90,22 +66,14 @@ public class Stepdefs {
         this.homePage.findSingInForm();
     }
 
-    @And("^fill in email address, password$")
-    public void fill_in_email_address_password() {
-        this.homePage.signIn();
+    @And("^fill in \"([^\"]*)\" and \"([^\"]*)\"$")
+    public void fill_in_email_address_password(String email, String password) {
+        this.homePage.signIn(email, password);
     }
 
-    @Then("^user should be logged in$")
-    public void user_should_be_logged_in() {
-        assertTrue(this.homePage.isLoggedIn("alfonso"));
-    }
-
-    @Given("^user is logged in$")
-    public void log_in_user() {
-        this.homePage = new HomePage(this.browser.driver);
-        this.homePage.findSingInForm();
-        this.homePage.signIn();
-        this.homePage.isLoggedIn("alfonso");
+    @Then("^\"([^\"]*)\" should be logged in$")
+    public void user_should_be_logged_in(String user) {
+        assertTrue(this.homePage.isLoggedIn(user));
     }
 
 
@@ -115,11 +83,10 @@ public class Stepdefs {
     =========================================================
     */
 
-    //@When("^Search for \"([^\"]*)\"$")
-    @When("^Search for Sketchbook$")
-    public void search_for_item() {
+    @When("^Search for \"([^\"]*)\"$")
+    public void search_for_item(String product) {
         this.searchPage = new SearchPage(this.browser.driver);
-        this.searchPage.searchProduct("Sketchbook");
+        this.searchPage.searchProduct(product);
     }
 
     @And("^Sort results by price ascending$")
@@ -132,9 +99,11 @@ public class Stepdefs {
     public void items_are_sorted() {
         boolean sorted = this.searchPage.areItemsSortedAscending();
         /*
-        BIG HACK, the list of products is not sorted correctly
+        **************************************************************
+        BIG HACKarround, the list of products is not sorted correctly
         I would send a bug-ticket to developers
-         */
+        **************************************************************
+        */
         try {
             assertTrue(sorted);
         } catch (AssertionError e) {
@@ -142,7 +111,7 @@ public class Stepdefs {
         }
     }
 
-    @And("^Add most expensive item to cart$")
+    @And("^Add most expensive product to cart$")
     public void add_item_to_cart() {
         WebElement product = this.searchPage.chooseMostExpensiveProduct();
         product.click();
@@ -154,12 +123,7 @@ public class Stepdefs {
         this.productPage.addToCart();
     }
 
-    @And("^Search for turntable mat$")
-    public void search_for_item_mat() {
-        this.searchPage.searchProduct("turntable mat");
-    }
-
-    @And("^Add any turntable mat to cart$")
+    @And("^Add any product to cart$")
     public void add_item_to_cart_mat() {
         WebElement product = this.searchPage.chooseAProduct();
         product.click();
@@ -180,4 +144,5 @@ public class Stepdefs {
             assertTrue(actualValues.contains(product));
         }
     }
+
 }
