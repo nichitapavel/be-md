@@ -1,49 +1,35 @@
 package browser;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Capabilities;
-import org.openqa.selenium.Cookie;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Set;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
 
 public class BrowserDriver implements AutoCloseable {
     public WebDriver driver;
 
-    public BrowserDriver() {
-        /*
-        try {
-            this.driver = new RemoteWebDriver(new URL("http://192.168.0.154:4444/wd/hub"), cap);
-        } catch (MalformedURLException e) {
-            System.out.println(e.getCause());
+    public BrowserDriver(String type) {
+        if ("LOCAL".equals(type)) {
+            String exePath = "C:/Users/pavel/Desktop/selenium/chromedriver.exe";
+            System.setProperty("webdriver.chrome.driver", exePath);
+            ChromeOptions capabilities = new ChromeOptions()
+                    .addArguments("--start-maximized");
+            this.driver = new ChromeDriver(capabilities);
+        } else {
+            ChromeOptions capabilities = new ChromeOptions()
+                    .addArguments("--start-maximized");
+            try {
+                this.driver = new RemoteWebDriver(new URL("http://192.168.0.154:4444/wd/hub"), capabilities);
+            } catch (MalformedURLException e) {
+                System.out.println(e.getCause());
+            }
         }
-        */
-
-        /* Chrome */
-        String exePath = "C:/Users/pavel/Desktop/selenium/chromedriver.exe";
-        System.setProperty("webdriver.chrome.driver", exePath);
-        ChromeOptions capabilities = new ChromeOptions()
-                .addArguments("--start-maximized");
-        this.driver = new ChromeDriver(capabilities);
-
-        /* Firefox
-        String exePath = "C:/Users/pavel/Desktop/selenium/geckodriver.exe";
-        System.setProperty("webdriver.gecko.driver", exePath);
-        FirefoxOptions capabilities = new FirefoxOptions();
-        this.driver = new FirefoxDriver();
-        this.driver.manage().window().maximize();
-        */
-
-        //Cookie acceptCookies = new Cookie("p", "eyJnZHByX3RwIjoxLCJnZHByX3AiOjF9", "https://etsy.com",
-        //null, null, true, true);
-        //this.driver.manage().addCookie(acceptCookies);
 
         this.driver.get("https://www.etsy.com/");
         Set<Cookie> cookies = this.driver.manage().getCookies();
