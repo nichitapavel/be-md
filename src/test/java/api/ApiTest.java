@@ -19,8 +19,6 @@ public class ApiTest {
 
     @Test
     public void postGist() {
-        System.out.println("\npostGist------------------------------GIST: " + Gists.getInstance().getID());
-        System.out.println("\npostGist------------------------------ApiTest: " + this.id);
         String jsonString = "{\"description\": \"be-md\",\"public\": false,\"files\": {\"be_md.txt\": {\"content\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua\"}}}";
         this.id = RestAssured.
                 given().
@@ -41,8 +39,6 @@ public class ApiTest {
 
     @Test
     public void getGist() {
-        System.out.println("\ngetGist------------------------------GIST: " + Gists.getInstance().getID());
-        System.out.println("\ngetGist------------------------------ApiTest: " + this.id);
          RestAssured.
             given().
                 auth().oauth2(this.authToken).
@@ -55,8 +51,6 @@ public class ApiTest {
 
     @Test
     public void validateGist() {
-        System.out.println("\nvalidateGist------------------------------GIST: " + Gists.getInstance().getID());
-        System.out.println("\nvalidateGist------------------------------ApiTest: " + this.id);
         RestAssured.
             given().
                 auth().oauth2(this.authToken).
@@ -69,8 +63,6 @@ public class ApiTest {
 
     @Test
     public void deleteGist() {
-        System.out.println("\ndeleteGist------------------------------GIST: " + Gists.getInstance().getID());
-        System.out.println("\ndeleteGist------------------------------ApiTest: " + this.id);
         RestAssured.
             given().
                 auth().oauth2(this.authToken).
@@ -82,8 +74,6 @@ public class ApiTest {
 
     @Test
     public void getDeletedGist() {
-        System.out.println("\ngetDeletedGist------------------------------GIST: " + Gists.getInstance().getID());
-        System.out.println("\ngetDeletedGist------------------------------ApiTest: " + this.id);
         RestAssured.
             given().
                 auth().oauth2(this.authToken).
