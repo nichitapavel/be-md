@@ -12,7 +12,7 @@ Feature: QA
 
   Examples:
     | user | email | password |
-    | "daniel" | "7898956ada@yahoo.com" | "mEMA6K7kVe7H" |
+    | "daniel" | "hiasjhbdqlaksjdasc@yahoo.com" | "mEMA6K7kVe7H" |
 
 
   Scenario Outline: Validate user
@@ -23,7 +23,7 @@ Feature: QA
 
   Examples:
     | user | email | password |
-    | "daniel" | "7898956ada@yahoo.com" | "mEMA6K7kVe7H" |
+    | "daniel" | "hiasjhbdqlaksjdasc@yahoo.com" | "mEMA6K7kVe7H" |
 
 
   Scenario Outline: Add products and validate cart
