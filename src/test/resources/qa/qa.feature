@@ -12,7 +12,7 @@ Feature: QA
 
   Examples:
     | user | email | password |
-    | "daniel" | "Cto1r8kB4T9OHf@yahoo.com" | "Cto1r8kB4T9OHf" |
+    | "daniel" | "7898956ada@yahoo.com" | "mEMA6K7kVe7H" |
 
 
   Scenario Outline: Validate user
@@ -23,7 +23,7 @@ Feature: QA
 
   Examples:
     | user | email | password |
-    | "daniel" | "Cto1r8kB4T9OHf@yahoo.com" | "Cto1r8kB4T9OHf" |
+    | "daniel" | "7898956ada@yahoo.com" | "mEMA6K7kVe7H" |
 
 
   Scenario Outline: Add products and validate cart
@@ -39,14 +39,3 @@ Feature: QA
   Examples:
     | product 1 | product 2 |
     | "Sketchbook" | "turntable mat" |
-
-
-  Scenario: Create a gists
-    Given gists
-    When post to url
-    Then gist created
-
-  Scenario: Validate a gists
-    Given id
-    When get gist
-    Then validate gist
