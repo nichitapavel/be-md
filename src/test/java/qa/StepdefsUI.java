@@ -3,7 +3,6 @@ package qa;
 import java.util.ArrayList;
 import java.util.List;
 
-import api.ApiTest;
 import browser.BrowserDriver;
 import pageobjects.CartPage;
 import pageobjects.HomePage;
@@ -20,23 +19,21 @@ import org.openqa.selenium.WebElement;
 import static org.junit.Assert.*;
 
 
-public class Stepdefs {
+public class StepdefsUI {
     private BrowserDriver browser;
     private HomePage homePage;
     private SearchPage searchPage;
     private ProductPage productPage;
     private CartPage cartPage;
     private List<String> productNames;
-    private String gistID = "95377fe8b3fb1acbe888bffea0263e40";
     private String today;
     private String actualAnswer;
-    private ApiTest apitTest;
+
 
     @Before
     public void beforeScenario() {
         this.browser = new BrowserDriver("LOCAL");
         this.productNames = new ArrayList<>();
-        this.apitTest = new ApiTest();
     }
 
     @After
@@ -150,39 +147,4 @@ public class Stepdefs {
         }
     }
 
-
-    /*
-    =========================================================
-                          API TESTING
-    =========================================================
-    */
-
-    @Given("^gists$")
-    public void gists(){
-    }
-
-    @When("^post to url$")
-    public void posting_gist(){
-        this.gistID = this.apitTest.post_gist();
-    }
-
-    @Then("^gist created$")
-    public void gist_created(){
-        assertNotNull(this.gistID);
-    }
-
-    @Given("^id$")
-    public void id(){
-
-    }
-
-    @When("^get gist$")
-    public void get_gist(){
-        this.apitTest.get_gist(this.gistID);
-    }
-
-    @Then("^$validate gist")
-    public void validate_gist() {
-        // https://github.com/rest-assured/rest-assured/wiki/Usage#json-schema-validation
-    }
 }
