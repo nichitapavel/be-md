@@ -14,21 +14,17 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 public class BrowserDriver implements AutoCloseable {
     public WebDriver driver;
 
-    public BrowserDriver(String type) {
+    public BrowserDriver() {
+        String hub = System.getProperty("selenium-hub");
         ChromeOptions capabilities = new ChromeOptions()
                 .addArguments("--start-maximized");
 
-        if ("LOCAL".equals(type)) {
-            String exePath = "C:/Users/pavel/Desktop/selenium/chromedriver.exe";
-            System.setProperty("webdriver.chrome.driver", exePath);
-            this.driver = new ChromeDriver(capabilities);
-        } else {
-            try {
-                this.driver = new RemoteWebDriver(new URL("http://192.168.0.154:4444/wd/hub"), capabilities);
-            } catch (MalformedURLException e) {
-                System.out.println(e.getCause());
-            }
+        try {
+            this.driver = new RemoteWebDriver(new URL(hub), capabilities);
+        } catch (MalformedURLException e) {
+            System.out.println(e.getCause());
         }
+
 
         this.driver.get("https://www.etsy.com/");
         Set<Cookie> cookies = this.driver.manage().getCookies();

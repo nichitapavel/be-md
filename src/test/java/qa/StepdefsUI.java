@@ -32,7 +32,7 @@ public class StepdefsUI {
 
     @Before
     public void beforeScenario() {
-        this.browser = new BrowserDriver("LOCAL");
+        this.browser = new BrowserDriver();
         this.productNames = new ArrayList<>();
     }
 
