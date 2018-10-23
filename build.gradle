@@ -32,4 +32,5 @@ dependencies {
 
 test {
     systemProperty 'token', 'xrq66q5wd27ezd212bv32dasgyj32bg6ftyh6das'
+    systemProperty 'selenium-hub', 'http://192.168.0.154:4444/wd/hub'
 }
