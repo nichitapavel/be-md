@@ -39,3 +39,14 @@ Feature: QA
   Examples:
     | product 1 | product 2 |
     | "Sketchbook" | "turntable mat" |
+
+
+  Scenario: Create a gists
+    Given gists
+    When post to url
+    Then gist created
+
+  Scenario: Validate a gists
+    Given id
+    When get gist
+    Then validate gist
