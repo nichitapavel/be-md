@@ -89,6 +89,14 @@ public class ApiTest {
                 delete("/" + this.id).
             then().
                 statusCode(204);
+
+        RestAssured.
+                given().
+                    auth().oauth2(this.authToken).
+                when().
+                    delete("/" + this.id).
+                then().
+                    statusCode(404);
     }
 
 }
