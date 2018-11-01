@@ -26,8 +26,6 @@ public class StepdefsUI {
     private ProductPage productPage;
     private CartPage cartPage;
     private List<String> productNames;
-    private String today;
-    private String actualAnswer;
 
 
     @Before
